@@ -4,6 +4,17 @@ using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(cors =>
+{
+    cors.AddDefaultPolicy(options =>
+    {
+        options
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins([ "https://localhost:8080", "http://localhost:8181" ]);
+    });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -23,17 +34,17 @@ if (app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetService<WarehouseDBContext>();
+    var ctx = scope.ServiceProvider.GetService<WarehouseDBContext>();
     var logger = scope.ServiceProvider.GetService<ILogger<WarehouseDBContext>>();
     try
     {
-        if (db != null)
+        if (ctx != null)
         {
-            db.Database.Migrate();
-            if (db.Products.Any())
+            ctx.Database.Migrate();
+            if (ctx.Products.Any())
             {
-                db.Products.RemoveRange(db.Products);
-                db.SaveChanges();
+                ctx.Products.RemoveRange(ctx.Products);
+                ctx.SaveChanges();
             }
             string json = File.ReadAllText("Products.json");
             List<JsonProduct>? jsonProducts = JsonSerializer.Deserialize<List<JsonProduct>>(json);
@@ -52,8 +63,8 @@ using (var scope = app.Services.CreateScope())
                         Description = j.Description ?? "",
                         ProductId = j.PartNumber!
                     }).ToList();
-                db.AddRange(products);
-                db.SaveChanges();
+                ctx.AddRange(products);
+                ctx.SaveChanges();
             }
         }
     }
@@ -62,6 +73,7 @@ using (var scope = app.Services.CreateScope())
         logger.LogCritical($"Fatal Database Error: {ex.Message}", ex);
     }
 }
+app.UseCors();
 
 app.UseFileServer();
 
