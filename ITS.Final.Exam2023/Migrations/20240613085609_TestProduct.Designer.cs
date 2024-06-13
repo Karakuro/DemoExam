@@ -4,6 +4,7 @@ using ITS.Final.Exam2023.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ITS.Final.Exam2023.Migrations
 {
     [DbContext(typeof(WarehouseDBContext))]
-    partial class WarehouseDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240613085609_TestProduct")]
+    partial class TestProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

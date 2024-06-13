@@ -1,5 +1,6 @@
 ﻿using ITS.Final.Exam2023.Data;
 using ITS.Final.Exam2023.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ namespace ITS.Final.Exam2023.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class ProductController : ControllerBase
     {
         private readonly ILogger<ProductController> _logger;

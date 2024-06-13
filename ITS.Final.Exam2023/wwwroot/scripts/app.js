@@ -3,7 +3,7 @@ let SendData = () => {
         code: document.getElementById("productCode").value,
         quantity: document.getElementById("productQuantity").value
     };
-    fetch("/api/Inventory", {
+    fetch(`/api/Inventory/`, { //APICETTO ALT+96
         method: "POST",
         headers: {
             "Content-Type": "application/json",

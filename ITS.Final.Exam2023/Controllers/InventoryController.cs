@@ -1,5 +1,6 @@
 ﻿using ITS.Final.Exam2023.Data;
 using ITS.Final.Exam2023.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace ITS.Final.Exam2023.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors]
     public class InventoryController : ControllerBase
     {
         private readonly ILogger<InventoryController> _logger;

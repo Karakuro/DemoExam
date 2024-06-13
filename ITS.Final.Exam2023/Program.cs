@@ -73,11 +73,10 @@ using (var scope = app.Services.CreateScope())
         logger.LogCritical($"Fatal Database Error: {ex.Message}", ex);
     }
 }
-app.UseCors();
-
-app.UseFileServer();
 
 app.UseHttpsRedirection();
+app.UseFileServer();
+app.UseCors();
 
 app.UseAuthorization();
 
